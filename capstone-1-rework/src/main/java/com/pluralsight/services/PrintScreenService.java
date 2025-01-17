@@ -27,7 +27,7 @@ public class PrintScreenService {
                 |                                                                                 |
                 |                              [D] Add Deposit                                    |
                 |                              [P] Make Payment (Debit)                           |
-                |                              [L] Show Ledger                                    |
+                |                              [A] Show Admin Panel                               |
                 |                              [X] Exit App                                       |
                 |                                                                                 |
                 ===================================================================================
@@ -41,8 +41,8 @@ public class PrintScreenService {
                 case "D", "d", "P", "p":
                     TransactionProcessingService.addTransaction(userInput);
                     break;
-                case "L", "l":
-                    showLedgerScreen();
+                case "A", "a":
+                    showAdminPanel();
                     break;
                 case "X", "x":
                     exitApp = true;
@@ -179,6 +179,16 @@ public class PrintScreenService {
                     throw new Error("Sorry, that's not a valid option. Please make your selection.");
             }
         } while(!exitApp);
+    }
+
+    public static void showAdminPanel() throws IOException {
+        String adminPasscode = "CarSales";
+        String codeFromUser = promptUser("Please enter passcode");
+        boolean passed = false;
+        if (adminPasscode.equalsIgnoreCase(codeFromUser)) {
+            passed = true;
+            showLedgerScreen();
+        }
     }
 
     //Retrieves user input from a prompt
